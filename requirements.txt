@@ -1,0 +1,11 @@
+pandas
+numpy
+matplotlib
+geopandas
+xlrd
+nbformat
+jupyter
+lxml_html_clean
+
+# Application dependencies
+streamlit
