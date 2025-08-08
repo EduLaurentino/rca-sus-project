@@ -62,8 +62,8 @@ pip install -r analises/requirements.txt
 streamlit run app.py
 ```
 
-The application provides a simple interface to explore the aggregated SRAG datasets. It includes filters for states and date range, displays a table of the filtered data, and shows a line chart of total cases over time. As the project progresses, additional pages and interactive visualizations can be added.
-
+TheThe Streamlit application provides an interactive interface to explore the aggregated SRAG datasets. On the **Data Explorer** page you can filter records by year, state (UF) and date range, view the filtered table, compute incidence rates by combining case counts with population estimates, and visualize trends via line charts. A **Map Visualisation** page displays choropleth maps of total cases or incidence rates by state using the IBGE shapefiles. A **References** page lists key research papers, data dictionaries and other documentation consulted in this project.
+e lists key research papers, data dictionaries and other documentation consulted in this project. IBGE shapefiles. A **References** page lists key research papers, data dictionaries and other documentation consulted in this project.**References** page lists key research papers, data dictionaries and other documentation consulted in this project.year, state (UF) and date range, view the filtered table, compute incidence rates by combining case counts with population estimates, and visualize trends via line charts.  A **Map Visualisation** page displays choropleth maps of total cases or incidence rates by state using the IBGE shapefiles.  A **References** page lists key research papers, data dictionaries and other documentation consulted in this project.
 ## Exploratory Analysis
 
 The notebooks in the `analises` directory demonstrate how to load and analyze the aggregated datasets, calculate incidence rates using population data, and visualize spatial patterns using the shapefiles. They serve as templates for further analyses.
