@@ -1,0 +1,207 @@
+/* Global styling for RCA SUS website */
+
+body {
+  margin: 0;
+  font-family: 'Open Sans', sans-serif;
+  background: #f9f9f9;
+  color: #333;
+  line-height: 1.6;
+}
+
+.container {
+  width: 90%;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+/* Navigation Bar */
+.navbar {
+  background: #ffffff;
+  border-bottom: 1px solid #e0e0e0;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+.navbar .container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.8rem 0;
+}
+.navbar .logo {
+  font-weight: 700;
+  font-size: 1.5rem;
+  color: #005a9c;
+}
+.navbar .nav-links {
+  list-style: none;
+  display: flex;
+  gap: 1.2rem;
+  margin: 0;
+  padding: 0;
+}
+.navbar .nav-links li a {
+  color: #333;
+  text-decoration: none;
+  padding: 0.5rem 0;
+  border-bottom: 2px solid transparent;
+  transition: color 0.3s, border-bottom-color 0.3s;
+}
+.navbar .nav-links li a:hover,
+.navbar .nav-links li a.active {
+  color: #005a9c;
+  border-bottom-color: #005a9c;
+}
+
+/* Hero Section */
+.hero {
+  height: 60vh;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 0 1rem;
+}
+.hero-content h1 {
+  font-size: 2.5rem;
+  color: #ffffff;
+  margin-bottom: 1rem;
+}
+.hero-content p {
+  color: #e0e0e0;
+  max-width: 700px;
+  margin: 0 auto;
+}
+.btn {
+  display: inline-block;
+  background: #ff9800;
+  color: #fff;
+  padding: 0.8rem 1.4rem;
+  border-radius: 5px;
+  text-decoration: none;
+  font-weight: 600;
+  margin-top: 1rem;
+  transition: background 0.3s;
+}
+.btn:hover {
+  background: #fb8c00;
+}
+
+/* Sections */
+section.overview {
+  padding: 3rem 0;
+}
+.overview h2 {
+  text-align: center;
+  margin-bottom: 1rem;
+  color: #005a9c;
+}
+.overview p {
+  max-width: 800px;
+  margin: 0 auto 2rem;
+  line-height: 1.6;
+}
+.features {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  justify-content: center;
+}
+.feature {
+  flex: 1;
+  min-width: 250px;
+  background: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  padding: 1.5rem;
+}
+.feature h3 {
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+  color: #005a9c;
+}
+
+/* Charts Section */
+.chart-section {
+  margin-bottom: 2rem;
+  background: #ffffff;
+  padding: 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+.chart-section h2 {
+  margin-top: 0;
+  color: #005a9c;
+}
+.chart-section p {
+  margin-top: 0.5rem;
+}
+
+/* Intro paragraphs */
+.intro {
+  margin-top: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+/* Reference list */
+.reference-list {
+  list-style: none;
+  padding-left: 0;
+}
+.reference-list li {
+  margin-bottom: 1rem;
+  background: #ffffff;
+  padding: 1rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+.reference-list li a {
+  color: #005a9c;
+  text-decoration: none;
+}
+.reference-list li a:hover {
+  text-decoration: underline;
+}
+
+/* Footer */
+.footer {
+  background: #003366;
+  color: #ffffff;
+  padding: 1rem 0;
+}
+.footer p {
+  margin: 0;
+  text-align: center;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .navbar .nav-links {
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+  .hero {
+    height: 50vh;
+  }
+  .hero-content h1 {
+    font-size: 2rem;
+  }
+  .feature {
+    flex-basis: 100%;
+  }
+}

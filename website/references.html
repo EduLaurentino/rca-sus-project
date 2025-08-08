@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Referências – RCA SUS</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <!-- Navigation bar -->
+  <nav class="navbar">
+    <div class="container">
+      <div class="logo">RCA SUS</div>
+      <ul class="nav-links">
+        <li><a href="index.html">Início</a></li>
+        <li><a href="data.html">Explorador de Dados</a></li>
+        <li><a href="map.html">Mapa Interativo</a></li>
+        <li><a href="methods.html">Metodologia</a></li>
+        <li><a href="references.html" class="active">Referências</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <main class="container">
+    <h1>Referências e Documentos</h1>
+    <p class="intro">
+      Esta página lista os principais documentos e fontes utilizadas no projeto RCA SUS. As referências incluem
+      documentações de dados, artigos científicos e propostas de pesquisa que fundamentam a metodologia de
+      inferência causal aplicada à epidemiologia.
+    </p>
+    <ul class="reference-list">
+      <li>
+        <strong><a href="https://github.com/EduLaurentino/rca-sus-project/blob/main/referencias/origem_dados.md" target="_blank">Origem dos Dados</a></strong> –
+        Documento em formato markdown que descreve as fontes de dados utilizadas no projeto, incluindo o banco de
+        dados SIVEP‑Gripe (casos hospitalizados de SRAG), arquivos agregados de 2019 e 2020, estimativas
+        populacionais do IBGE e shapefiles de unidades federativas.【998068322427703†screenshot】
+      </li>
+      <li>
+        <strong><a href="https://github.com/EduLaurentino/rca-sus-project/blob/main/referencias/Ph.D%20in%20Causal%20Inference.pdf" target="_blank">Ph.D in Causal Inference</a></strong> –
+        Proposta de doutorado que apresenta um arcabouço de inferência causal para análise automatizada de causas
+        em saúde pública. O documento discute a integração de dados clínicos, socioeconômicos e ambientais,
+        introduz redes de gêmeos profundas (deep twin networks) para inferir contra-factuais e probabilidades de
+        causação, e planeja estudos de caso em surtos epidemiológicos.【676110407724566†screenshot】【831115039056183†screenshot】
+      </li>
+      <li>
+        <strong><a href="https://github.com/EduLaurentino/rca-sus-project/blob/main/referencias/BRACIS2025rca_Springer.pdf" target="_blank">Probabilities of Causation and Root Cause Analysis with Quasi‑Markovian Models</a></strong> –
+        Artigo de conferência que propõe algoritmos para calcular limites mais precisos das probabilidades de
+        causação em presença de confundimento latente. O trabalho desenvolve um novo framework de análise de
+        causas baseado em modelos quase‑markovianos, que serve de base para a priorização de caminhos causais
+        relevantes.【771787009726773†screenshot】
+      </li>
+      <li>
+        <strong><a href="https://github.com/EduLaurentino/rca-sus-project/blob/main/referencias/Estimating%20Categorical%20Counterfactuals%20via%20Deep%20Twin%20Networks.pdf" target="_blank">Estimating Categorical Counterfactuals via Deep Twin Networks</a></strong> –
+        Artigo que apresenta redes de gêmeos profundas para estimar contra-factuais em tratamentos categóricos.
+        As redes de gêmeos são utilizadas para calcular probabilidades de necessidade e suficiência, métricas chave
+        para a inferência causal em contextos com múltiplas intervenções.【165067900995641†screenshot】
+      </li>
+      <li>
+        <strong><a href="https://github.com/EduLaurentino/rca-sus-project/blob/main/referencias/Dicionario_de_Dados_SRAG_Hospitalizado_23.03.2021.pdf" target="_blank">Dicionário de Dados SIVEP‑Gripe</a></strong> –
+        Documento oficial do Ministério da Saúde contendo a descrição e o significado de cada variável presente no
+        banco de dados de notificação de SRAG. Essencial para a interpretação correta dos campos e para a
+        limpeza dos dados.【259453666269791†screenshot】
+      </li>
+    </ul>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <p>© 2025 RCA SUS Project. Consulte as referências para aprofundar seu entendimento.</p>
+    </div>
+  </footer>
+</body>
+</html>

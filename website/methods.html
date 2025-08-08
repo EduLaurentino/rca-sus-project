@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Metodologia – RCA SUS</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <!-- Navigation bar -->
+  <nav class="navbar">
+    <div class="container">
+      <div class="logo">RCA SUS</div>
+      <ul class="nav-links">
+        <li><a href="index.html">Início</a></li>
+        <li><a href="data.html">Explorador de Dados</a></li>
+        <li><a href="map.html">Mapa Interativo</a></li>
+        <li><a href="methods.html" class="active">Metodologia</a></li>
+        <li><a href="references.html">Referências</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <main class="container">
+    <h1>Metodologia</h1>
+    <p class="intro">
+      Esta seção descreve as principais etapas e técnicas adotadas no projeto RCA SUS para
+      investigar relações de causa e efeito em dados epidemiológicos. O objetivo central é
+      desenvolver um arcabouço que automatize a Análise de Causa Raiz (Root Cause Analysis)
+      utilizando métodos de inferência causal e aprendizagem de máquina.
+    </p>
+    <h2>Integração de Dados</h2>
+    <p>
+      Inicialmente, agregamos dados de múltiplas fontes públicas:
+    </p>
+    <ul>
+      <li>SIVEP‑Gripe – banco de dados nacional de notificações de Síndrome Respiratória Aguda Grave (SRAG) que
+      registra hospitalizações e óbitos.</li>
+      <li>Estimativas Populacionais do IBGE – utilizadas para calcular indicadores per capita e incidência.</li>
+      <li>Variáveis Socioeconômicas e Ambientais – indicadores como renda média, densidade populacional e dados
+      climáticos obtidos de plataformas governamentais.</li>
+      <li>Shape files – polígonos das unidades federativas brasileiras para visualizações espaciais.</li>
+    </ul>
+    <p>
+      Todas essas fontes são harmonizadas por meio de identificadores geográficos (UF, município) e
+      transformadas para um formato tabular ou espacial compatível. A limpeza e preparação dos dados incluem
+      tratamento de valores ausentes, categorização de variáveis e agregação temporal.
+    </p>
+
+    <h2>Descoberta de Causalidade</h2>
+    <p>
+      Para inferir relações causais a partir de dados observacionais empregamos duas abordagens complementares:
+    </p>
+    <ul>
+      <li><strong>Descoberta de grafos causais</strong>: utilizamos algoritmos de construção de DAGs (grafo acíclico
+      direcionado) para mapear dependências condicionais entre variáveis e identificar potenciais caminhos
+      causais. Esses algoritmos testam independências condicionais e controlam confundidores.</li>
+      <li><strong>Modelagem de Contra-factuais com Deep Twin Networks</strong>: redes de gêmeos profundas são
+      arquiteturas neurais que aprendem representações latentes de pares de indivíduos expostos e não expostos
+      (ou diferentes tratamentos) para estimar resultados contra-factuais. Elas viabilizam o cálculo de
+      probabilidades de necessidade e suficiência – métricas que quantificam a influência de uma variável sobre
+      outra.【165067900995641†screenshot】</li>
+    </ul>
+    <p>
+      A combinação dessas técnicas permite não apenas descobrir relações estatísticas, mas também inferir
+      mecanismos causais subjacentes, mesmo na presença de confundimento oculto ou variáveis não observadas.
+    </p>
+
+    <h2>Probabilidades de Causação</h2>
+    <p>
+      O projeto faz uso das <em>probabilidades de causação</em> – como a Probabilidade de Necessidade (PN) e
+      a Probabilidade de Suficiência (PS) – para quantificar o quanto um fator X é essencial ou suficiente para
+      a ocorrência de um efeito Y. O artigo <a href="https://github.com/EduLaurentino/rca-sus-project/blob/main/referencias/BRACIS2025rca_Springer.pdf" target="_blank">BRACIS2025</a>
+      apresenta algoritmos que calculam limites tight para PN e PS em modelos quase‑markovianos, mesmo sob
+      confundimento latente.【771787009726773†screenshot】 Esses valores são utilizados para ranquear causas e
+      orientar a tomada de decisão em saúde pública.
+    </p>
+
+    <h2>Estudos de Caso</h2>
+    <p>
+      Com os dados integrados e as ferramentas de inferência causal implementadas, conduzimos estudos de caso
+      específicos, como o surto de SRAG em 2019. As análises exploratórias revelam diferenças regionais na
+      incidência de casos e apontam para fatores potenciais (socioeconômicos e climáticos) que podem ter
+      contribuído para a propagação. Futuras pesquisas incluirão experimentos com intervenções simuladas
+      (contrafactuais) para avaliar o impacto de políticas públicas, além de incorporar dados de outras doenças
+      como dengue ou COVID‑19.
+    </p>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <p>© 2025 RCA SUS Project. Conheça nossa metodologia para entender a ciência por trás dos resultados.</p>
+    </div>
+  </footer>
+</body>
+</html>

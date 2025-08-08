@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mapa Interativo – RCA SUS</title>
+  <link rel="stylesheet" href="styles.css" />
+  <!-- Leaflet CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-Vb48s8ziD32UQGbztir0eKK0jqgbVSZbB5w3at/BVLs=" crossorigin="" />
+  <style>
+    /* Ajustes específicos para o mapa */
+    #map {
+      width: 100%;
+      height: 600px;
+      margin-top: 1rem;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    .info {
+      padding: 6px 8px;
+      background: white;
+      background: rgba(255, 255, 255, 0.8);
+      box-shadow: 0 0 15px rgba(0,0,0,0.2);
+      border-radius: 5px;
+    }
+    .legend {
+      line-height: 18px;
+      color: #555;
+      background: white;
+      padding: 6px 8px;
+      background: rgba(255, 255, 255, 0.8);
+      box-shadow: 0 0 15px rgba(0,0,0,0.2);
+      border-radius: 5px;
+    }
+    .legend i {
+      width: 18px;
+      height: 18px;
+      float: left;
+      margin-right: 8px;
+      opacity: 0.7;
+    }
+  </style>
+  <!-- Leaflet JS -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-QRCGsI6GVjuHGr/U/x16niS+HmulwrPco/LMG0mZQCk=" crossorigin=""></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <!-- Navigation bar -->
+  <nav class="navbar">
+    <div class="container">
+      <div class="logo">RCA SUS</div>
+      <ul class="nav-links">
+        <li><a href="index.html">Início</a></li>
+        <li><a href="data.html">Explorador de Dados</a></li>
+        <li><a href="map.html" class="active">Mapa Interativo</a></li>
+        <li><a href="methods.html">Metodologia</a></li>
+        <li><a href="references.html">Referências</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <main class="container">
+    <h1>Mapa Interativo</h1>
+    <p class="intro">
+      Explore a distribuição geográfica de casos de SRAG em 2019 usando um mapa coroplético. A intensidade da cor
+      representa a incidência de casos por 100.000 habitantes em cada estado, permitindo identificar regiões com
+      maior proporção de casos.【748133964701766†L653-L659】
+    </p>
+    <div id="map"></div>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <p>© 2025 RCA SUS Project. Visualização geográfica de dados de saúde pública.</p>
+    </div>
+  </footer>
+
+  <script>
+    async function loadJSON(path) {
+      const response = await fetch(path);
+      return await response.json();
+    }
+
+    async function initMap() {
+      // Carregar GeoJSON remoto (limites dos estados brasileiros)
+      const geojson = await (await fetch('https://raw.githubusercontent.com/codeforamerica/click_that_hood/master/public/data/brazil-states.geojson')).json();
+
+      // Dados agregados de casos e incidência por estado (2019)
+      const stateDataList = [
+        { SG_UF: 'AC', cases: 349, incidence: 38.4837618373 },
+        { SG_UF: 'AL', cases: 236, incidence: 0.7012641058 },
+        { SG_UF: 'AM', cases: 1951, incidence: 45.6909200128 },
+        { SG_UF: 'AP', cases: 51, incidence: 5.8112174728 },
+        { SG_UF: 'BA', cases: 1835, incidence: 1.224534659 },
+        { SG_UF: 'CE', cases: 1082, incidence: 1.1709221589 },
+        { SG_UF: 'DF', cases: 1790, incidence: null },
+        { SG_UF: 'ES', cases: 847, incidence: 20.6157563768 },
+        { SG_UF: 'GO', cases: 1372, incidence: null },
+        { SG_UF: 'MA', cases: 258, incidence: 3.6067461251 },
+        { SG_UF: 'MG', cases: 4035, incidence: 18.844640904 },
+        { SG_UF: 'MS', cases: 1750, incidence: null },
+        { SG_UF: 'MT', cases: 338, incidence: null },
+        { SG_UF: 'PA', cases: 1090, incidence: 12.4186464724 },
+        { SG_UF: 'PB', cases: 381, incidence: 9.3844560402 },
+        { SG_UF: 'PE', cases: 2614, incidence: 2.7018665371 },
+        { SG_UF: 'PI', cases: 458, incidence: 1.3923977092 },
+        { SG_UF: 'PR', cases: 6805, incidence: 58.6765198383 },
+        { SG_UF: 'RJ', cases: 2429, incidence: 13.9091304881 },
+        { SG_UF: 'RN', cases: 345, incidence: 9.688553718 },
+        { SG_UF: 'RO', cases: 176, incidence: 9.6954846585 },
+        { SG_UF: 'RR', cases: 33, incidence: 5.0558208585 },
+        { SG_UF: 'RS', cases: 3588, incidence: 31.2907977322 },
+        { SG_UF: 'SC', cases: 2266, incidence: 30.8783584814 },
+        { SG_UF: 'SE', cases: 262, incidence: 1.1203886226 },
+        { SG_UF: 'SP', cases: 12338, incidence: 26.448509267 },
+        { SG_UF: 'TO', cases: 245, incidence: 15.2423565803 }
+      ];
+
+      // Construir mapa base
+      const map = L.map('map').setView([-14.235, -51.925], 4);
+
+      // Adiciona camada base (tiles OpenStreetMap)
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+      }).addTo(map);
+
+      // Criar objeto de lookup para incidência e casos
+      const dataLookup = {};
+      stateDataList.forEach(item => {
+        dataLookup[item.SG_UF] = {
+          cases: item.cases,
+          incidence: item.incidence
+        };
+      });
+
+      // Função para definir cor com base na incidência
+      function getColor(d) {
+        return d > 50 ? '#8c0f3d' :
+               d > 40 ? '#c72e4d' :
+               d > 30 ? '#e7525e' :
+               d > 20 ? '#f98a6b' :
+               d > 10 ? '#fec49a' :
+               '#feeadd';
+      }
+
+      function style(feature) {
+        const sigla = feature.properties.sigla;
+        const incidence = dataLookup[sigla] ? dataLookup[sigla].incidence : 0;
+        return {
+          fillColor: getColor(incidence),
+          weight: 1,
+          opacity: 1,
+          color: 'white',
+          dashArray: '3',
+          fillOpacity: 0.8
+        };
+      }
+
+      // Adicionar info control
+      const info = L.control();
+      info.onAdd = function (map) {
+        this._div = L.DomUtil.create('div', 'info');
+        this.update();
+        return this._div;
+      };
+      info.update = function (props) {
+        this._div.innerHTML = '<h4>Incidência de SRAG 2019</h4>' +  (props ?
+          '<b>' + props.nome + ' (' + props.sigla + ')</b><br />' +
+          'Casos: ' + (dataLookup[props.sigla] ? dataLookup[props.sigla].cases.toLocaleString('pt-BR') : '-') + '<br />' +
+          'Incidência: ' + (dataLookup[props.sigla] ? dataLookup[props.sigla].incidence.toFixed(2) : '-') + ' por 100k'
+          : 'Passe o mouse sobre um estado');
+      };
+      info.addTo(map);
+
+      // Criar legenda
+      const legend = L.control({position: 'bottomright'});
+      legend.onAdd = function (map) {
+        const div = L.DomUtil.create('div', 'legend'),
+          grades = [0, 10, 20, 30, 40, 50],
+          labels = [];
+        div.innerHTML = '<h4>Incidência</h4>';
+        for (let i = 0; i < grades.length; i++) {
+          div.innerHTML +=
+            '<i style="background:' + getColor(grades[i] + 1) + '"></i> ' +
+            grades[i] + (grades[i + 1] ? '–' + grades[i + 1] + '<br>' : '+');
+        }
+        return div;
+      };
+      legend.addTo(map);
+
+      // Interação de destaque
+      function highlightFeature(e) {
+        const layer = e.target;
+        layer.setStyle({
+          weight: 3,
+          color: '#666',
+          dashArray: '',
+          fillOpacity: 0.8
+        });
+        layer.bringToFront();
+        info.update(layer.feature.properties);
+      }
+      function resetHighlight(e) {
+        geojsonLayer.resetStyle(e.target);
+        info.update();
+      }
+      function zoomToFeature(e) {
+        map.fitBounds(e.target.getBounds());
+      }
+      function onEachFeature(feature, layer) {
+        layer.on({
+          mouseover: highlightFeature,
+          mouseout: resetHighlight,
+          click: zoomToFeature
+        });
+      }
+
+      // Adicionar geojson ao mapa
+      const geojsonLayer = L.geoJson(geojson, {
+        style: style,
+        onEachFeature: onEachFeature
+      }).addTo(map);
+    }
+
+    window.addEventListener('load', initMap);
+  </script>
+</body>
+</html>
