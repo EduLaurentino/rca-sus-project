@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>RCA SUS Project</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <!-- Google font for body text -->
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <!-- Navigation bar -->
+  <nav class="navbar">
+    <div class="container">
+      <div class="logo">RCA SUS</div>
+      <ul class="nav-links">
+        <li><a href="index.html" class="active">Início</a></li>
+        <li><a href="data.html">Explorador de Dados</a></li>
+        <li><a href="map.html">Mapa Interativo</a></li>
+        <li><a href="methods.html">Metodologia</a></li>
+        <li><a href="references.html">Referências</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Hero section -->
+  <header class="hero" style="background: linear-gradient(135deg, #0066cc 0%, #00bfa5 100%);">
+    <div class="overlay">
+      <div class="hero-content">
+        <h1>Root Cause Analysis para Saúde Pública</h1>
+        <p>
+          Uma plataforma interativa para explorar dados de Síndrome Respiratória Aguda Grave (SRAG),
+          integrar informações socioeconômicas e ambientais, e descobrir causas potenciais de
+          surtos através de inferência causal.
+        </p>
+        <a href="data.html" class="btn">Comece a Explorar</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Overview section -->
+  <section class="overview">
+    <div class="container">
+      <h2>Sobre o Projeto</h2>
+      <p>
+        O projeto RCA SUS (Root Cause Analysis para o Sistema Único de Saúde) visa criar um arcabouço
+        automatizado para análise de causas em saúde pública. Utilizamos dados públicos de
+        Síndrome Respiratória Aguda Grave (SIVEP‑Gripe), estimativas populacionais do IBGE,
+        variáveis socioeconômicas e ambientais para construir modelos causais que nos permitam
+        entender os fatores que impulsionam surtos e epidemias. Esta plataforma apresenta os
+        resultados do projeto e disponibiliza ferramentas de exploração de dados e visualização geográfica.
+      </p>
+      <div class="features">
+        <div class="feature">
+          <h3>Explorador de Dados</h3>
+          <p>Visualize estatísticas de casos e incidência por estado, identifique tendências temporais e
+          compare regiões com gráficos interativos.</p>
+        </div>
+        <div class="feature">
+          <h3>Mapa Interativo</h3>
+          <p>Navegue por um mapa coroplético do Brasil mostrando a distribuição geográfica dos casos de SRAG
+          em 2019, ajustada pela população.</p>
+        </div>
+        <div class="feature">
+          <h3>Metodologia</h3>
+          <p>Conheça os métodos de inferência causal utilizados, incluindo redes de gêmeos profundas e
+          probabilidades de causação.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <p>© 2025 RCA SUS Project. Construído como parte de um estudo acadêmico em epidemiologia e inferência causal.</p>
+    </div>
+  </footer>
+</body>
+</html>
