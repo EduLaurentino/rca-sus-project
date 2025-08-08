@@ -1,27 +1,39 @@
 # RCA SUS Project
 
-This repository contains datasets and a Streamlit application developed for a Ph.D. project on automated root cause analysis (RCA) in
-epidemiology using public health data from Brazil. The goal is to integrate data from multiple sources — including SIVEP‑Gripe, IBGE,
-INMET and MapBiomas — to explore causal relationships and support analyses using causal inference and machine learning.  
-It serves as a central place to store data, code and documentation used in the project.
+This repository contains datasets, exploratory analysis notebooks and a Streamlit application developed for a Ph.D. project on automated root cause analysis (RCA) in epidemiology using public health data from Brazil. The goal is to integrate data from multiple sources—such as SIVEP‑Gripe, IBGE, INMET, MapBiomas and others—to explore causal relationships and support analyses using causal inference and machine learning. It serves as a central place to store data, code, documentation and references used in the project.
 
 ## Contents
 
-- **`aggregated_sivep_2020.csv`** – Aggregated counts of SRAG cases by Brazilian state (`SG_UF`) and date of symptom onset (`DT_SIN_PRI`).
-  This file was generated from the SIVEP‑Gripe microdata for the year 2020. It contains one row per state per date with a
-  `cases` column representing the number of cases.
-- **`INFLUD20-26-06-2025.zip`** and **`INFLUD20-26-06-2025.z01.part00`–`part10`** – Segmented ZIP archive of the original SIVEP‑Gripe
-  dataset. The dataset is too large to upload in a single file via GitHub, so it has been split into a main `.zip` file and
-  multiple `.part` files, each smaller than 25 MB.
-- **`app.py`** – Streamlit application for exploring the aggregated dataset and documenting the project’s objectives and data sources.
-- **Research papers and documentation** – The repository also contains PDF files such as *Ph.D in Causal Inference*,
-  *BRACIS2025rca_Springer*, and *Estimating Categorical Counterfactuals via Deep Twin Networks*. These provide theoretical
-  background on causal inference and root cause analysis and are included as reference material.
+- **data/SIVEP/2019/** – Contains aggregated counts and raw microdata for the year 2019:
+  - `aggregated_sivep_2019.csv` – Aggregated counts of SRAG cases by Brazilian state (`SG_UF`) and date of symptom onset (`DT_SIN_PRI`) for 2019.
+  - `INFLUD19-26-06-2025.zip` – Compressed SIVEP‑Gripe microdata for 2019 (single ZIP file).
 
-## Reconstructing the Full SIVEP Dataset
+- **data/SIVEP/2020/** – Contains aggregated counts and raw microdata for the year 2020:
+  - `aggregated_sivep_2020.csv` – Aggregated counts of SRAG cases by state and date of symptom onset for 2020.
+  - `INFLUD20-26-06-2025.zip` and `INFLUD20-26-06-2025.z01.part00`–`part10` – Segmented ZIP archive of the original SIVEP‑Gripe microdata for 2020. Because the dataset is too large to upload in a single file via GitHub, it is split into a main `.zip` file and multiple `.part` files.
 
-The original SIVEP‑Gripe CSV (`INFLUD20-26-06-2025.csv`) is much larger than GitHub’s upload limit. It has been split into a main ZIP
-file and several part files. To reconstruct the full ZIP and extract the CSV on your local machine, install the `zip` utility and run:
+- **data/IBGE/shapefiles/** – Shapefiles from IBGE for territorial boundaries:
+  - `BR_UF_2022.zip` – Shapefile of Brazil’s 27 states (Unidades Federativas) for 2022.
+  - `BR_Pais_2022.zip` – Shapefile of the national territory of Brazil for 2022.
+
+- **data/IBGE/population/** – Population estimates from IBGE:
+  - `estimativa_dou_2021.xls` – Excel file with 2021 population estimates for Brazil and each state.
+
+- **analises/** – Jupyter notebooks and supporting files for exploratory data analysis:
+  - `eda_sivep.ipynb` – Exploratory analysis of SRAG data and calculation of incidence rates.
+  - `eda_sivep_spatial.ipynb` – Spatial analysis of SRAG using IBGE shapefiles.
+  - `requirements.txt` – List of Python dependencies required to run the notebooks and the Streamlit app.
+
+- **app.py** – Streamlit application for exploring the aggregated datasets and documenting the project’s objectives and data sources.
+
+- **referencias/** – Reference materials and documentation:
+  - `origem_dados.md` – Summary document describing each dataset and its download source.
+  - `origem_dados_hyperlinks.pdf` – PDF version of the data source summary with clickable hyperlinks.
+  - `Ph.D in Causal Inference.pdf`, `BRACIS2025rca_Springer.pdf`, `Estimating Categorical Counterfactuals via Deep Twin Networks.pdf`, `Dicionario_de_Dados_SRAG_Hospitalizado_23.03.2021.pdf` – Research papers and official data dictionary used as references.
+
+## Reconstructing the SIVEP‑Gripe Datasets
+
+The original SIVEP‑Gripe CSV files (`INFLUD19-26-06-2025.csv` for 2019 and `INFLUD20-26-06-2025.csv` for 2020) are much larger than GitHub’s upload limit. For 2020, the ZIP archive has been split into a main `.zip` file and multiple `.part` files. To reconstruct the full ZIP and extract the CSV on your local machine, install the `zip` utility and run:
 
 ```bash
 # Combine the parts into a single ZIP file (requires `zip` >= 3.0):
@@ -35,42 +47,31 @@ Alternatively, if `zip` with split support is not available, you can concatenate
 
 ```bash
 # Concatenate all part files (ensure correct order) and the main zip:
-cat INFLUD20-26-06-2025.z01.part* > INFLUD20-26-06-2025.zip
-unzip INFLUD20-26-06-2025.zip
+cat INFLUD20-26-06-2025.z01.part* INFLUD20-26-06-2025.zip > INFLUD20-26-06-2025-complete.zip
+unzip INFLUD20-26-06-2025-complete.zip
 ```
 
-Either method will produce the original `INFLUD20-26-06-2025.csv` used to generate the aggregated dataset.
+Either method will produce the original `INFLUD20-26-06-2025.csv` used to generate the aggregated dataset. For 2019, simply unzip `INFLUD19-26-06-2025.zip` to obtain `INFLUD19-26-06-2025.csv`.
 
 ## Running the Streamlit Application
 
-To run the app locally, clone this repository and install the required dependencies:
+To run the app locally, clone this repository and install the required dependencies (see `analises/requirements.txt`). A minimal example:
 
 ```bash
-pip install streamlit pandas
+pip install -r analises/requirements.txt
 streamlit run app.py
 ```
 
-The application provides a simple interface to explore the aggregated SRAG dataset. It includes filters for states and date range,
-displays a table of the filtered data, and shows a line chart of total cases over time. As the project progresses, additional pages
-and interactive visualizations can be added.
+The application provides a simple interface to explore the aggregated SRAG datasets. It includes filters for states and date range, displays a table of the filtered data, and shows a line chart of total cases over time. As the project progresses, additional pages and interactive visualizations can be added.
 
-## Next Steps
+## Exploratory Analysis
 
-- **Data integration** – Expand the dataset by integrating demographic, socioeconomic, environmental and climatic variables at
-  municipal or regional levels (e.g. IBGE census data, INMET weather data, MapBiomas land use data).
-- **Causal modeling** – Implement causal inference methods (DoWhy, Pyro, CausalML, EconML) to estimate causal effects and
-  perform root cause analysis on the integrated dataset.
-- **App expansion** – Enhance the Streamlit app to include model outputs, dashboards, maps and interactive tools for exploring
-  heterogeneous causal effects.
+The notebooks in the `analises` directory demonstrate how to load and analyze the aggregated datasets, calculate incidence rates using population data, and visualize spatial patterns using the shapefiles. They serve as templates for further analyses.
 
-## Contributing
+## References
 
-This repository is private and intended for collaborators within the research group. If you wish to contribute, fork the repository,
-create a feature branch, make your changes and open a pull request for review. Please adhere to best practices for data privacy and
-keep any sensitive information secure.
+The `referencias` directory contains the research proposal for this Ph.D. project, key papers on causal inference (including those on deep twin networks), official data dictionaries for SIVEP‑Gripe, and a summary of the data sources with links.
 
-## License
+---
 
-The data contained in this repository originates from public sources (SIVEP‑Gripe, IBGE, INMET, MapBiomas, etc.) and is subject to
-their respective licenses and usage restrictions. This repository itself is shared under an academic use agreement for research
-purposes only. No warranty is expressed or implied; use it at your own risk.
+We welcome contributions! Please open issues or pull requests if you have suggestions or wish to collaborate.
