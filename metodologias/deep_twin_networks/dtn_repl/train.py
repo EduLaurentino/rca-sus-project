@@ -67,21 +67,24 @@ class Trainer:
             Object containing accuracy metrics and probabilities of
             causation.
         """
-        # prepare training data
-        X_train = self.dataset.train[['X', 'U_y', 'X_prime']].copy()
-        y_train = self.dataset.train[['Y', 'Y_prime']].copy()
+        # prepare training data: copy all available feature columns
+        X_train = self.dataset.train.drop(columns=[c for c in self.dataset.train.columns if c.startswith('Y')]).copy()
+        y_train = self.dataset.train[[c for c in self.dataset.train.columns if c.startswith('Y')]].copy()
         # fit model
         self.model.fit(X_train, y_train)
         # evaluate on test set
-        X_test = self.dataset.test[['X', 'U_y', 'X_prime']].copy()
-        y_test = self.dataset.test[['Y', 'Y_prime']].copy()
+        X_test = self.dataset.test.drop(columns=[c for c in self.dataset.test.columns if c.startswith('Y')]).copy()
+        y_test = self.dataset.test[[c for c in self.dataset.test.columns if c.startswith('Y')]].copy()
         p_y, p_y_prime = self.model.predict_proba(X_test)
         # binary predictions
         y_pred = (p_y >= self.threshold).astype(int)
-        y_prime_pred = (p_y_prime >= self.threshold).astype(int)
-        # compute accuracies
         factual_accuracy = accuracy_score(y_test['Y'].astype(int), y_pred)
-        counterfactual_accuracy = accuracy_score(y_test['Y_prime'].astype(int), y_prime_pred)
+        # compute counterfactual accuracy only if ground truth is available
+        if 'Y_prime' in y_test.columns:
+            y_prime_pred = (p_y_prime >= self.threshold).astype(int)
+            counterfactual_accuracy = accuracy_score(y_test['Y_prime'].astype(int), y_prime_pred)
+        else:
+            counterfactual_accuracy = None
         # compute probabilities of causation
         prob_causation = compute_probabilities_of_causation(p_y, p_y_prime)
         # compile metadata

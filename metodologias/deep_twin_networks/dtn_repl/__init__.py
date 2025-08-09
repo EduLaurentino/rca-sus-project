@@ -32,7 +32,13 @@ guidance on usage.
 """
 
 from .datasets import SyntheticDataset, TwinDataset, KenyanDataset, load_dataset
-from .models import BaseTwinModel, LogisticTwinModel
+from .models import (
+    BaseTwinModel,
+    LogisticTwinModel,
+    SLearnerTwinModel,
+    TLearnerTwinModel,
+    XLearnerTwinModel,
+)
 from .train import Trainer
 from .probcause import ProbabilityOfCausation
 
@@ -43,6 +49,9 @@ __all__ = [
     "load_dataset",
     "BaseTwinModel",
     "LogisticTwinModel",
+    "SLearnerTwinModel",
+    "TLearnerTwinModel",
+    "XLearnerTwinModel",
     "Trainer",
     "ProbabilityOfCausation",
 ]

@@ -39,6 +39,13 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument('--seed', type=int, default=42, help='Random seed')
     # model parameters (future extension)
     parser.add_argument('--threshold', type=float, default=0.5, help='Decision threshold for classification')
+    parser.add_argument(
+        '--model',
+        type=str,
+        default='logistic',
+        choices=['logistic', 'slearner', 'tlearner', 'xlearner'],
+        help='Type of twin model to use: logistic (synthetic only), slearner, tlearner or xlearner'
+    )
     return parser.parse_args()
 
 
@@ -57,7 +64,21 @@ def main(args: argparse.Namespace) -> None:
         dataset_kwargs = dict()
     data = load_dataset(args.dataset, **dataset_kwargs)
     # instantiate model (only logistic regression for now)
-    model = LogisticTwinModel()
+    # select model strategy
+    model_type = args.model.lower()
+    if model_type == 'logistic':
+        model = LogisticTwinModel()
+    elif model_type == 'slearner':
+        from dtn_repl.models import SLearnerTwinModel
+        model = SLearnerTwinModel()
+    elif model_type == 'tlearner':
+        from dtn_repl.models import TLearnerTwinModel
+        model = TLearnerTwinModel()
+    elif model_type == 'xlearner':
+        from dtn_repl.models import XLearnerTwinModel
+        model = XLearnerTwinModel()
+    else:
+        raise ValueError(f"Unknown model type {args.model}")
     trainer = Trainer(model=model, dataset=data, threshold=args.threshold)
     result = trainer.run()
     # print results

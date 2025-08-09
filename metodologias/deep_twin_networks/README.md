@@ -11,14 +11,43 @@ README for a description of the broader Ph.D. project and data sources.
 
 ## Contents
 
-* `dtn_repl/` – Python package implementing dataset loaders, twin
-  models and training utilities.  The synthetic dataset generator
-  reproduces the causal mechanism from the paper; loaders for the
-  Twins and Kenyan datasets are included (the Kenyan loader is a
-  placeholder requiring manual download).  The base model uses two
-  logistic regressions to estimate factual and counterfactual
-  outcomes.  Modular design via the strategy pattern allows easy
-  substitution of more advanced models.
+* `dtn_repl/` – Python package implementing dataset loaders,
+  twin models and training utilities.  The synthetic dataset
+  generator reproduces the causal mechanism from the paper;
+  loaders for the Twins and Kenyan datasets are included (the
+  Kenyan loader is a placeholder requiring manual download).  The
+  package defines an abstract `BaseTwinModel` and several
+  concrete strategies:
+
+  * `LogisticTwinModel` (baseline) – requires both factual and
+    counterfactual outcomes and is intended for synthetic data;
+
+  * `SLearnerTwinModel` – implements a single‑model (S‑learner)
+    meta‑learner using a gradient boosting classifier.  It trains
+    one model on the factual outcome and uses the trained model to
+    predict potential outcomes under treatment and control by
+    toggling the treatment variable.  This strategy does *not*
+    require counterfactual labels and therefore supports
+    observational data;
+
+  * `TLearnerTwinModel` – implements a two‑model (T‑learner)
+    meta‑learner using random forests.  Separate models are
+    trained on treated and control subsets to estimate potential
+    outcomes.  Like the S‑learner, it only needs the factual
+    outcome and is suited to observational data.
+
+  * `XLearnerTwinModel` – implements an X‑learner, a more advanced
+    meta‑learning strategy that estimates heterogeneous treatment
+    effects.  It first fits T‑learner outcome models, then imputes
+    treatment effects and trains regressors to predict those
+    effects.  The imputed effects are combined to compute the
+    potential outcomes under both treatment and control.  This
+    approach only requires factual outcomes and supports
+    observational data.
+
+  The design follows the strategy pattern, making it easy to plug in
+  alternative models such as causal forests or neural networks when
+  additional libraries become available.
 * `run_experiment.py` – Command‑line script demonstrating how to
   generate a dataset, train the baseline model and compute
   probabilities of causation.
@@ -32,13 +61,32 @@ README for a description of the broader Ph.D. project and data sources.
    ```bash
    pip install -r requirements.txt
    ```
-3. Run an experiment, for example on a synthetic dataset:
+3. Run an experiment.  For synthetic data with both factual and
+   counterfactual labels you can use the logistic baseline:
+
    ```bash
-   python run_experiment.py --dataset synthetic --n_samples 50000
+   python run_experiment.py --dataset synthetic --n_samples 50000 --model logistic
    ```
-4. To use the Twins data set, specify `--dataset twins`.  The loader
-   will automatically download the data from the GANITE repository if
-   it is not present locally.
+
+   For observational data (e.g., the Twins dataset) where only the
+   factual outcome is observed, choose either the S‑learner, T‑learner
+   or X‑learner strategy:
+
+   ```bash
+   # S‑learner on Twins data
+   python run_experiment.py --dataset twins --model slearner
+
+   # T‑learner on Twins data
+   python run_experiment.py --dataset twins --model tlearner
+
+    # X‑learner on Twins data
+    python run_experiment.py --dataset twins --model xlearner
+   ```
+
+4. The loader will automatically download the Twins data from the
+   GANITE repository if it is not present locally.  For the Kenyan
+   dataset you must download the data manually; see the documentation
+   in `dtn_repl/datasets.py`.
 
 ## Relation to the Original Paper
 
