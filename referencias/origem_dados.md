@@ -51,3 +51,26 @@ Este documento descreve a origem exata dos conjuntos de dados utilizados no proj
 ## Outros Materiais
 
 - **Dicionários de dados e documentação**: As bases do Ministério da Saúde normalmente acompanham dicionários de dados descrevendo campos e códigos. Os dicionários do SIVEP‑Gripe, SINAN e SIM podem ser consultados nos portais OpenDataSUS e TabNet (DATASUS)【13†L100-L108】【18†L123-L131】. Recomenda‑se verificar a documentação oficial para interpretação de variáveis específicas.
+## Dados Meteorológicos
+
+### NASA POWER – Temperatura média (T2M) 2019
+
+- **Fonte**: NASA POWER (Prediction Of Worldwide Energy Resources).
+- **Descrição**: Dados diários de temperatura média do ar a 2 metros (T2M) para capitais brasileiras (São Paulo – SP, Rio de Janeiro – RJ e Manaus – AM) no ano de 2019.
+- **Local de download**: API do NASA POWER (`https://power.larc.nasa.gov/api/temporal/daily/point`) com parâmetros `start=20190101`, `end=20191231`, `community=SB`, `parameters=T2M`, `latitude` e `longitude` da localidade.
+- **Observação**: Utilizado para cruzar condições climáticas com incidência de SRAG e indicadores socioeconômicos.
+
+### Dados meteorológicos agregados 2019
+
+- **Arquivo**: `weather_2019_states.csv`
+- **Descrição**: Base derivada dos dados da NASA, contendo temperatura média diária por estado (SP, RJ, AM) durante 2019.
+- **Observação**: Gerado localmente a partir dos JSONs da NASA via script Python; serve para análises cruzadas no notebook `eda_weather_2019.ipynb`.
+
+## Dados Socioeconômicos Adicionais
+
+### Índice de Desenvolvimento Humano Municipal (IDHM)
+
+- **Fonte**: Programa das Nações Unidas para o Desenvolvimento (PNUD) / Instituto de Pesquisa Econômica Aplicada (Ipea) / Fundação João Pinheiro (FJP).
+- **Descrição**: Base de dados contendo indicadores socioeconômicos e componentes do Índice de Desenvolvimento Humano Municipal (IDHM) para todos os municípios do Brasil (dados do censo de 2010), tais como IDHM, renda, longevidade e educação.
+- **Local de download**: Repositório GitHub `mauriciocramos/IDHM` – arquivo `municipal.csv` (disponível em `https://github.com/mauriciocramos/IDHM`).
+- **Observação**: Utilizado para calcular médias de IDHM por Unidade Federativa e cruzar com incidência de SRAG e variáveis climáticas; arquivo armazenado em `data/IBGE/idhm/idhm_municipal.csv`.
