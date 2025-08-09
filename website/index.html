@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <!-- Google font for body text -->
-  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
   <!-- Navigation bar -->
@@ -26,16 +26,20 @@
   </nav>
 
   <!-- Hero section -->
-  <header class="hero" style="background: linear-gradient(135deg, #0066cc 0%, #00bfa5 100%);">
-    <div class="overlay">
-      <div class="hero-content">
-        <h1>Root Cause Analysis para Saúde Pública</h1>
+  <header class="hero">
+    <div class="container hero-wrapper">
+      <!-- Textual introduction on the left -->
+      <div class="hero-text">
+        <h1>Root Cause Analysis<br/> para Saúde Pública</h1>
         <p>
-          Uma plataforma interativa para explorar dados de Síndrome Respiratória Aguda Grave (SRAG),
-          integrar informações socioeconômicas e ambientais, e descobrir causas potenciais de
-          surtos através de inferência causal.
+          Projeto de pesquisa que une inteligência artificial, dados de saúde e conhecimento
+          epidemiológico para entender e prevenir surtos de Síndrome Respiratória Aguda Grave (SRAG).
         </p>
-        <a href="data.html" class="btn">Comece a Explorar</a>
+        <a href="data.html" class="btn">Explore os Dados</a>
+      </div>
+      <!-- Playful illustration on the right -->
+      <div class="hero-image">
+        <img src="illustration_lungs.png" alt="Ilustração de pulmões conectados" />
       </div>
     </div>
   </header>
@@ -45,12 +49,12 @@
     <div class="container">
       <h2>Sobre o Projeto</h2>
       <p>
-        O projeto RCA SUS (Root Cause Analysis para o Sistema Único de Saúde) visa criar um arcabouço
-        automatizado para análise de causas em saúde pública. Utilizamos dados públicos de
-        Síndrome Respiratória Aguda Grave (SIVEP‑Gripe), estimativas populacionais do IBGE,
-        variáveis socioeconômicas e ambientais para construir modelos causais que nos permitam
-        entender os fatores que impulsionam surtos e epidemias. Esta plataforma apresenta os
-        resultados do projeto e disponibiliza ferramentas de exploração de dados e visualização geográfica.
+        O RCA SUS é um esforço interdisciplinar para analisar as causas profundas de surtos de
+        Síndrome Respiratória Aguda Grave combinando dados de saúde pública, perfis socioeconômicos
+        e variáveis ambientais. A iniciativa integra informações de sistemas como o SIVEP‑Gripe e
+        estimativas populacionais do IBGE para construir modelos causais que revelem fatores que
+        impulsionam epidemias<span class="cite">【435743201979703†L848-L860】</span>. Os resultados são apresentados em
+        forma de visualizações interativas e seções explicativas.
       </p>
       <div class="features">
         <div class="feature">
@@ -61,13 +65,59 @@
         <div class="feature">
           <h3>Mapa Interativo</h3>
           <p>Navegue por um mapa coroplético do Brasil mostrando a distribuição geográfica dos casos de SRAG
-          em 2019, ajustada pela população.</p>
+          em 2019, ajustada pela população【748133964701766†L653-L659】.</p>
         </div>
         <div class="feature">
           <h3>Metodologia</h3>
           <p>Conheça os métodos de inferência causal utilizados, incluindo redes de gêmeos profundas e
           probabilidades de causação.</p>
         </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Importance section: scientific & social relevance -->
+  <section class="importance">
+    <div class="container importance-wrapper">
+      <div class="importance-text">
+        <h2>Importância Científica e Social</h2>
+        <p>
+          A SRAG é uma infecção respiratória grave que pode evoluir rapidamente e causar internações
+          e óbitos. Em 2025, 14 estados brasileiros registraram um aumento preocupante de
+          hospitalizações por SRAG, principalmente causadas por vírus influenza A e B<span class="cite">【415454200738994†screenshot】</span>.
+          A identificação precoce de sintomas como febre, coriza e dores no corpo é essencial para
+          evitar agravamentos<span class="cite">【177853887713971†screenshot】</span>. A análise de dados ajuda a entender
+          onde e por que esses surtos ocorrem, permitindo ações de prevenção e políticas de saúde
+          mais eficazes.
+        </p>
+        <p>
+          Nosso projeto se baseia em técnicas avançadas de inferência causal, como redes de gêmeos
+          profundas, para estimar probabilidades de necessidade e suficiência e identificar fatores
+          que contribuem para o surgimento de surtos. Além do impacto científico, buscamos
+          construir uma ponte entre pesquisa e sociedade: resultados de análise são apresentados de
+          forma acessível, fornecendo subsídios para gestores de saúde, pesquisadores e cidadãos.
+        </p>
+      </div>
+      <div class="video-container">
+        <!-- Embedded YouTube video -->
+        <iframe src="https://www.youtube.com/embed/8e18bBA11Ac" title="Aumento de casos de Síndrome Respiratória Aguda Grave" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        <p class="video-caption">Vídeo do Dr. Drauzio Varella sobre o aumento de casos de SRAG<span class="cite">【133684013828087†screenshot】</span>.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Institutional section: logos and affiliation -->
+  <section class="institutional">
+    <div class="container inst-wrapper">
+      <h2>Institucional</h2>
+      <p>
+        Esta pesquisa é conduzida pelo Departamento de Ciência da Computação do
+        <strong>Instituto de Matemática e Estatística (IME)</strong> da
+        <strong>Universidade de São Paulo (USP)</strong>, unindo ciência de dados e saúde pública.
+      </p>
+      <div class="logos">
+        <img src="logo_usp.png" alt="USP" />
+        <img src="logo_ime.png" alt="IME" />
       </div>
     </div>
   </section>
