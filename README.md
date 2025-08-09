@@ -1,4 +1,4 @@
-# RCA SUS Project
+# CausalRCA@4SUS Project
 
 This repository contains datasets, exploratory analysis notebooks and a Streamlit application developed for a Ph.D. project on automated root cause analysis (RCA) in epidemiology using public health data from Brazil. The goal is to integrate data from multiple sources—such as SIVEP‑Gripe, IBGE, INMET, MapBiomas and others—to explore causal relationships and support analyses using causal inference and machine learning. It serves as a central place to store data, code, documentation and references used in the project.
 
@@ -63,7 +63,9 @@ streamlit run app.py
 ```
 
 TheThe Streamlit application provides an interactive interface to explore the aggregated SRAG datasets. On the **Data Explorer** page you can filter records by year, state (UF) and date range, view the filtered table, compute incidence rates by combining case counts with population estimates, and visualize trends via line charts. A **Map Visualisation** page displays choropleth maps of total cases or incidence rates by state using the IBGE shapefiles. A **References** page lists key research papers, data dictionaries and other documentation consulted in this project.
-e lists key research papers, data dictionaries and other documentation consulted in this project. IBGE shapefiles. A **References** page lists key research papers, data dictionaries and other documentation consulted in this project.**References** page lists key research papers, data dictionaries and other documentation consulted in this project.year, state (UF) and date range, view the filtered table, compute incidence rates by combining case counts with population estimates, and visualize trends via line charts.  A **Map Visualisation** page displays choropleth maps of total cases or incidence rates by state using the IBGE shapefiles.  A **References** page lists key research papers, data dictionaries and other documentation consulted in this project.
+e lists key research papers, data dictionaries and other documentation consulted in this project.
+
+
 ## Exploratory Analysis
 
 The notebooks in the `analises` directory demonstrate how to load and analyze the aggregated datasets, calculate incidence rates using population data, and visualize spatial patterns using the shapefiles. They serve as templates for further analyses.
